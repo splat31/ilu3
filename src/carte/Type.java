@@ -17,15 +17,15 @@ public enum Type {
 		this.botte=botte;
 	}
 	
-	private String getAttaque() {
+	public String getAttaque() {
 		return attaque;
 	}
 
-	private String getParade() {
+	public String getParade() {
 		return parade;
 	}
 
-	private String getBotte() {
+	public String getBotte() {
 		return botte;
 	}
 }
