@@ -2,42 +2,48 @@ package carte;
 
 public class JeuDeCartes {
 	int nbconfig=0;
-	private Configuration[] cartesc=null;
+	private Configuration[]  cartesc = new Configuration[20];
 	public String affichageJeuDeCartes() {
-		StringBuilder bui = new StringBuilder();
-		bui.append("JEU : /n");
-		int nbexemplaires;
-		String nomCarte;
-		for (int i=0;i<cartesc.length;i++) {
-			nbexemplaires = cartesc[i].getNbExemplaires();
-			nomCarte = cartesc[i].getCarte().toString();
-			bui.append(nbexemplaires);
-			bui.append(" "+nomCarte + "/n");
-		}
-		return bui.toString();
+		if (cartesc == null) return "Aucun jeu créé.\n";
+        StringBuilder bui = new StringBuilder();
+        bui.append("JEU : \n");
+        for (int i = 0; i < nbconfig; i++) {
+            int nbexemplaires = cartesc[i].getNbExemplaires();
+            String nomCarte = cartesc[i].getCarte().toString();
+            bui.append(nbexemplaires).append(" ").append(nomCarte).append("\n");
+        }
+        return bui.toString();
 	}
 	
 	public Carte[] donnerCartes() {
-		Carte[] cartes = null;
-		int nbcarte=0;
-		for (int i= 0;i>nbconfig;i++) {
-			for (int j=0;j<cartesc[i].getNbExemplaires();j++) {
-				cartes[nbcarte]=cartesc[i].getCarte();
-				nbcarte++;
-			}
-		}
-		/*
-		for (Configuration configuration : cartesc) {
-			if (configuration.getNbExemplaires() > 1) {
-				cartes[i]=configuration.getCarte();
-				i++;
-			}
-		}*/
-		return cartes;
+		if (cartesc == null) return new Carte[0];
+
+        // 1. Compter le nombre total de cartes
+        int total = 0;
+        for (int i = 0; i < nbconfig; i++) {
+            total += cartesc[i].getNbExemplaires();
+        }
+
+        // 2. Créer le tableau final
+        Carte[] cartes = new Carte[total];
+
+        // 3. Remplir le tableau
+        int index = 0;
+        for (int i = 0; i < nbconfig; i++) {
+            for (int j = 0; j < cartesc[i].getNbExemplaires(); j++) {
+                cartes[index] = cartesc[i].getCarte();
+                index++;
+            }
+        }
+
+        return cartes;
 	}
-	public Configuration creertableau (int) {
-		
-	}
+	/*
+	public void creertableau(int taille) {
+	    cartesc = new Configuration[taille];
+	    nbconfig = 0; // on réinitialise le compteur de configurations
+	}*/
+
 	public void ajouterCarte (Carte carte, int nbExemplaires) {
 		Configuration config= new Configuration(carte,nbExemplaires);
 		cartesc[nbconfig]=config;

@@ -2,7 +2,7 @@ package carte;
 
 public class Parade extends Bataille {
 
-	protected Parade(Type type) {
+	public Parade(Type type) {
 		super(type);
 	}
 
