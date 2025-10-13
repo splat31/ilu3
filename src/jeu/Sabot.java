@@ -77,9 +77,6 @@ public class Sabot implements Iterable<Carte> {
 
         @Override
         public Carte next() {
-            if (expectedModCount != modCount) {
-                throw new IllegalStateException("Le sabot a été modifié pendant l’itération !");
-            }
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }

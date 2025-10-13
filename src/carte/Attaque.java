@@ -1,6 +1,6 @@
 package carte;
 
-public class Attaque extends Bataille {
+public class Attaque extends Bataille{
 
 	public Attaque(Type type) {
 		super(type);
@@ -10,6 +10,7 @@ public class Attaque extends Bataille {
 	public String toString() {
 		return getType().getAttaque();
 	}
+	
 
 
 }

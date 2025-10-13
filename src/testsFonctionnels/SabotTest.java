@@ -59,13 +59,24 @@ class SabotTest {
 
         assertTrue(sabot.estVide(), "Le sabot doit être vide après suppression de toutes les cartes.");
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * c) Test : exceptions attendues
      * - piocher pendant une itération
      * - ajouter une carte pendant une itération
      */
-    /*@Test
+    /*
+     * 
+    @Test
     void testExceptions() {
         Carte[] cartes = {
             new Borne(25),

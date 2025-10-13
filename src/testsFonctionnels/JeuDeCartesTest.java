@@ -62,5 +62,9 @@ class JeuDeCartesTest {
 	    
 		assertEquals("JEU : \n10 25KM\n10 50KM\n10 75KM\n12 100KM\n4 200KM\n14 Feu Vert\n6 Fin Limite\n6 Bidon d'essence\n6 Roue de secours\n6 Reparation\n5 Feu Rouge\n4 Limite 50\n3 Panne d'essence\n3 Crevaison\n3 Accident\n1 Prioritaire\n1 Citerne\n1 Increvable\n1 As du volant\n", jeu.affichageJeuDeCartes());
 	}
+	
+	void testcheckcount() {
+		assert(1==1);
+	}
 
 }

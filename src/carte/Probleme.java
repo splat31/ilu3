@@ -14,6 +14,14 @@ public abstract class Probleme extends Carte {
 		return type;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Probleme carte) {
+			return getClass()==carte.getClass()&&getType()==carte.getType();
+		}
+		return false;
+	}
+	
 	public abstract String toString(); //pour me forcer à redéfinir toString
 
 }

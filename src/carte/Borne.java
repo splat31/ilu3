@@ -13,4 +13,12 @@ public class Borne extends Carte{
 	public String toString() {
 		return getKm()+"KM";
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Borne carte) {
+			return carte.getKm()==getKm();
+		}
+		return false;
+	}
 }
