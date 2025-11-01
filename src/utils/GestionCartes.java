@@ -113,15 +113,22 @@ public class GestionCartes {
 			}
 			int position = iterator.nextIndex();
 			
-
-		    for (ListIterator<Carte> iterator2 = lcarte.listIterator(position);iterator2.hasNext();) {
-		    	Carte cartetemp3 = iterator2.next();
-		    	if (cartetemp.equals(cartetemp3)) {
-		    		return false;
-		    	}
-		    }
+			if (!methode2(position, lcarte, cartetemp)) {
+				return false;
+			}
+		    
 			cartetemp=cartetemp2;
 		}
+		return true;//n'arrivera pas normalement
+	}
+	
+	public boolean methode2 (int position,List<Carte> lcarte,Carte verif) {
+		for (ListIterator<Carte> iterator = lcarte.listIterator(position);iterator.hasNext();) {
+	    	Carte cartetemp = iterator.next();
+	    	if (verif.equals(cartetemp)) {
+	    		return false;
+	    	}
+	    }
 		return true;
 	}
 	
