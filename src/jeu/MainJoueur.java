@@ -14,31 +14,60 @@ public class MainJoueur implements Iterable<Carte> {
 	private List<Carte> main = new ArrayList<>();
 	private int modCount = 0;
 	
+	
 	@Override
 	public String toString() {
-		StringBuilder builder =null;
-		builder.append("possède: ");
+		if (main.isEmpty()) {
+			return "la main est vide";
+		}
+		StringBuilder builder =new StringBuilder();;
 		for (Carte carte : main ) {
-			builder.append(carte.toString());
+			builder.append(carte.toString()+", ");
 		}
 		return builder.toString();
 	}
 	
-	void prendre(Carte carte) {
+	public void prendre(Carte carte) {
 		main.add(carte);
 		modCount++;
 	}
 	
-	void jouer(Carte carte) {
-		assertTrue(main.contains(carte));
-		for (ListIterator<Carte> iterator= main.listIterator();iterator.hasNext();) {
-			Carte carte2= iterator.next();
-			if (carte.equals(carte2)) {
-				iterator.remove();
-				modCount++;
-				return;
-			}
-		}
+	public void jouer(Carte carte) {
+	    assertTrue(main.contains(carte));
+
+	    Iterator<Carte> it = iterator(); 
+	    while (it.hasNext()) {
+	        Carte c = it.next();
+	        if (c.equals(carte)) {
+	            it.remove();
+	            return;
+	        }
+	    }
+	}
+	
+	public void jouerderniere() {
+		//VOLONTAIREMENT TRES NUL C'est pour tester plus facilement
+	    assertTrue(!main.isEmpty());
+	    Carte carte = main.getLast();
+	    Iterator<Carte> it = iterator(); 
+	    while (it.hasNext()) {
+	        Carte c = it.next();
+	        if (c.equals(carte)) {
+	            it.remove();
+	            return;
+	        }
+	    }
+	   
+	}
+
+	
+	public boolean contient(Carte c) {
+		return main.contains(c);
+	}
+	
+	//Pour les tests aussi
+	public boolean MainIsEmpty() {
+		return main.isEmpty();
 	}
 
 	@Override

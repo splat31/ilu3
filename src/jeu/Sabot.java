@@ -8,6 +8,11 @@ public class Sabot implements Iterable<Carte> {
     private Carte[] cartes;
     private int nbCartes;
     private int modCount = 0; // nombre de modifications structurelles (pour détection)
+    
+    @Override
+    public Iterator<Carte> iterator() {
+        return new SabotIterator();
+    }
 
     /**
      * Constructeur : reçoit un tableau de cartes initial
@@ -40,27 +45,23 @@ public class Sabot implements Iterable<Carte> {
         modCount++;
     }
 
-    /**
-     * Renvoie un itérateur sur les cartes.
-     */
-    @Override
-    public Iterator<Carte> iterator() {
-        return new SabotIterator();
-    }
+    
 
     /**
      * Méthode piocher : retire et retourne la première carte du sabot.
      * @throws NoSuchElementException si le sabot est vide.
      */
     public Carte piocher() {
-        if (estVide()) {
-            throw new NoSuchElementException("Le sabot est vide !");
-        }
-        Iterator<Carte> it = iterator();
-        Carte premiere = it.next();
-        it.remove(); // supprime la première carte
-        return premiere;
+    	if (estVide()) {
+    		throw new NoSuchElementException("Le sabot est vide !");
+    	} 
+    	Iterator<Carte> it = iterator();
+    	Carte premiere = it.next();
+    	it.remove(); // supprime la première carte
+    	modCount++;
+    	return premiere;
     }
+
 
     /**
      * Classe interne : itérateur du sabot.
@@ -77,6 +78,9 @@ public class Sabot implements Iterable<Carte> {
 
         @Override
         public Carte next() {
+        	if (expectedModCount != modCount) {
+                throw new IllegalStateException("Le sabot a été modifié pendant l’itération 1!");
+            }
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -86,11 +90,11 @@ public class Sabot implements Iterable<Carte> {
 
         @Override
         public void remove() {
-            if (!canRemove) {
+            if (!canRemove || nbCartes < 1) {
                 throw new IllegalStateException("remove() ne peut être appelé qu’après next()");
             }
             if (expectedModCount != modCount) {
-                throw new IllegalStateException("Le sabot a été modifié pendant l’itération !");
+                throw new IllegalStateException("Le sabot a été modifié pendant l’itération 2!");
             }
 
             // Décaler les cartes vers la gauche
@@ -102,7 +106,7 @@ public class Sabot implements Iterable<Carte> {
             cursor--;
             canRemove = false;
             modCount++;
-            expectedModCount++;
+            expectedModCount=modCount;
         }
     }
 }
