@@ -1,3 +1,10 @@
 /Sabot$SabotIterator.class
 /Sabot.class
 /Jeu.class
+/ZoneDeJeu.class
+/Joueur.class
+/MainJoueur.class
+/MainJoueur$SabotIterator.class
+/MainJoueur$M.class
+/MainJoueur$MainIterator.class
+/Cartes.class
