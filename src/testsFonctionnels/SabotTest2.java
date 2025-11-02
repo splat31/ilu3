@@ -50,11 +50,11 @@ public class SabotTest2 {
 		for (Iterator<Carte> iterator = sabotc.iterator(); iterator.hasNext();) {
 			Carte carte = iterator.next();
 			System.out.println("Je pioche " + carte);
-			Carte cartePioche = sabotc.piocher();
+			iterator.remove();
 		}
 		Iterator<Carte> iterator = sabotc.iterator();
 		iterator.hasNext();
-		System.out.println("\nLa pioche contient encore des cartes ? " + sabotc.estVide());
+		System.out.println("\nLa pioche contient encore des cartes ? " + !sabotc.estVide());
 	}
 
 	public static void main(String[] args) {
