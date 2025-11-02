@@ -22,6 +22,6 @@ public abstract class Probleme extends Carte {
 		return false;
 	}
 	
-	public abstract String toString(); //pour me forcer à redéfinir toString
+	public abstract String toString(); //pour me forcer ï¿½ redï¿½finir toString
 
 }

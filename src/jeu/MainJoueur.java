@@ -20,9 +20,9 @@ public class MainJoueur implements Iterable<Carte> {
 		if (main.isEmpty()) {
 			return "la main est vide";
 		}
-		StringBuilder builder =new StringBuilder();;
+		StringBuilder builder =new StringBuilder();
 		for (Carte carte : main ) {
-			builder.append(carte.toString()+", ");
+			builder.append(carte.toString()+" ");
 		}
 		return builder.toString();
 	}

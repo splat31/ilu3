@@ -5,12 +5,17 @@ public class Botte extends Probleme {
 		super(nom, force);
 	}*/
 	public Botte(Type type) {
-	 super(type);
+		super(type);
 	}
 	
 	@Override
 	public String toString() {
 		return getType().getBotte();
-	}
+	}	
+	
+	@Override
+    public int hashCode() {
+        return 31*getType().hashCode();
+    }
 
 }

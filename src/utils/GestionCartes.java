@@ -73,7 +73,7 @@ public class GestionCartes {
 			Carte cartetemp = iterator.next();
 			if (!retour.contains(cartetemp)) {
 				retour.add(cartetemp);
-			}
+			}                                                                                              
 		}
 		return retour;
 	}
