@@ -103,7 +103,7 @@ public class ZoneDeJeu {
 		}
 		Bataille sommet = pileBatailles.getLast();
 		if (sommet instanceof Attaque att) {
-			if (att.getType().equals(Type.FEU)) {
+			if (att.getType().equals(Type.FEU)||estProtege(att)) {
 				return true;
 			}
 		}
