@@ -1,18 +1,13 @@
 package testsFonctionnels;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import carte.Carte;
 import carte.JeuDeCartes;
 import jeu.Jeu;
 import jeu.Joueur;
-import jeu.Sabot;
-import jeu.ZoneDeJeu;
 
 class JeuTest {
 	JeuDeCartes jeuDeCartes;
@@ -23,8 +18,8 @@ class JeuTest {
 	void setUp() throws Exception {
 		jeuDeCartes=new JeuDeCartes();
 		jeu = new Jeu(jeuDeCartes.donnerCartes());
-		jeu.ajouterJoueur(new Joueur("Bastien", new ZoneDeJeu()));
-		jeu.ajouterJoueur(new Joueur("Yoann", new ZoneDeJeu()));
+		jeu.ajouterJoueur(new Joueur("Bastien"));
+		jeu.ajouterJoueur(new Joueur("Yoann"));
 		//jeu.ajouterJoueur(new Joueur("Oscar", new ZoneDeJeu()));
 		//jeu.ajouterJoueur(new Joueur("Vira", new ZoneDeJeu()));
 		jeu.distribuerCartes();

@@ -20,8 +20,7 @@ class JoueurTest {
 	void setUp() throws Exception {
 		ROUGE = "\u001B[31m";
 	    RESET = "\u001B[0m";
-		zone1 = new ZoneDeJeu();
-		j1 = new Joueur("Joueur 1", zone1);
+		j1 = new Joueur("Joueur 1");
 		
 		
 	}
@@ -52,6 +51,7 @@ class JoueurTest {
 		System.out.println("le joueur "+j1.toString()+" a dans sa main:\n"+j1.getMain().toString());
 		System.out.println("Total des bornes : "+j1.donnerKmParcourus());
 		
+		zone1=j1.getZone();
 		System.out.println("Limite :" + zone1.donnerLimitationVitesse());
 		System.out.println("Deposer carte "+dL1);
 		j1.deposer(dL1);
@@ -64,8 +64,8 @@ class JoueurTest {
 	}
 	
 	@Test
-	void testiterateur() {
-		
+	void testmain() {
+		System.out.println(ROUGE +"\nDebut test main" + RESET);
 		/*DE BASE ON DEVRA TOUJOURS UTILISER JOUEUR POUR TRAITER SA MAIN
 		Mais pour facilier mes tests j'utilise la main directement
 		ce qui implique de mettre ses fonction en public*/
@@ -83,13 +83,17 @@ class JoueurTest {
 		main.prendre(b3);
 		main.prendre(dL1);
 		main.prendre(fL1);
+		
+		assertNotEquals("la main est vide",main.toString()); //elle n'est pas vide
 		while (!main.MainIsEmpty()) {
 			main.jouerderniere();
 		}
 
 		System.out.println(main.toString()); // "la main est vide"
+		assertEquals("la main est vide",main.toString());
 		
 		//flemme de faire des try catch pour tester si on obtient bien des erreurs
+		System.out.println(ROUGE +"Fin test main" + RESET);
 	}
 
 }
