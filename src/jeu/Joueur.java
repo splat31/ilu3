@@ -121,7 +121,7 @@ public class Joueur {
 		builder.append("\nLa carte au somment de ma pile de bataille est:\n");
 
 		if (!zoneDeJeu.getBatailles().isEmpty()) {
-			builder.append(zoneDeJeu.getBatailles().getLast());
+			builder.append(zoneDeJeu.getBatailles().getFirst());
 		} else {
 			builder.append("aucune bataille");
 		}

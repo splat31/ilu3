@@ -1,16 +1,16 @@
 package jeu;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 import carte.*;
 
 public class ZoneDeJeu {
-	//TODO faire des piles pour limite et bataille
-	private List<Limite> pileLimite = new ArrayList<>();
-	private List<Bataille> pileBatailles = new ArrayList<>();
+	private LinkedList<Limite> pileLimite = new LinkedList<>();
+	private LinkedList<Bataille> pileBatailles = new LinkedList<>();
 	private List<Borne> pilebBornes = new ArrayList<>();
 	private Set<Botte> bottes = new HashSet<>();
 
@@ -21,7 +21,7 @@ public class ZoneDeJeu {
 		if (pileLimite.isEmpty()) {
 			return 200;
 		}
-		Limite limite = pileLimite.getLast();
+		Limite limite = pileLimite.getFirst();
 		if (limite instanceof FinLimite) {
 			return 200;
 		}
@@ -34,7 +34,7 @@ public class ZoneDeJeu {
 		}
 		int total = 0;
 		for (Borne borne : pilebBornes) {
-			total = total + borne.getKm();
+			total += borne.getKm();
 		}
 		return total;
 	}
@@ -43,29 +43,24 @@ public class ZoneDeJeu {
 		if (c instanceof Borne borne) {
 			pilebBornes.add(borne);
 		} else if (c instanceof Limite limite) {
-			pileLimite.add(limite);
+			pileLimite.addFirst(limite);
 		} else if (c instanceof Bataille bataille) {
-			pileBatailles.add(bataille);
+			pileBatailles.addFirst(bataille);
 		} else if (c instanceof Botte botte) {
 			bottes.add(botte);
 		} else {
-			throw new IllegalArgumentException("On depose une carte non valide");
+			throw new IllegalArgumentException("On dépose une carte non valide");
 		}
 	}
 
 	public boolean peutAvancer() {
 		if (pileBatailles.isEmpty()) {
-			if (estPrioritaire()) {
-				return true;
-			}
-			return false;
+			return estPrioritaire();
 		}
-		Bataille derniereBataille = pileBatailles.getLast();
-		if (derniereBataille instanceof Parade p) {
+		Bataille derniereBataille = pileBatailles.getFirst();
 
-			if (p.getType().equals(Type.FEU)||estPrioritaire()) {
-				return true;
-			} 
+		if (derniereBataille instanceof Parade p) {
+			return p.getType().equals(Type.FEU) || estPrioritaire();
 		}
 		if (derniereBataille instanceof Attaque a) {
 			if (a.getType().equals(Type.FEU) && estPrioritaire()) {
@@ -86,10 +81,7 @@ public class ZoneDeJeu {
 		if (km > donnerLimitationVitesse()) {
 			return false;
 		}
-		if (donnerKmParcourus() + km > 1000) {
-			return false;
-		}
-		return true;
+		return donnerKmParcourus() + km <= 1000;
 	}
 
 	private boolean estDepotFeuVerAutorise() {
@@ -99,7 +91,7 @@ public class ZoneDeJeu {
 		if (pileBatailles.isEmpty()) {
 			return true;
 		}
-		Bataille sommet = pileBatailles.getLast();
+		Bataille sommet = pileBatailles.getFirst();
 		if (sommet instanceof Attaque att) {
 			if (att.getType().equals(Type.FEU) || estProtege(att)) {
 				return true;
@@ -121,46 +113,33 @@ public class ZoneDeJeu {
 			if (pileLimite.isEmpty()) {
 				return true;
 			}
-			if (pileLimite.getLast() instanceof FinLimite) {
-				return true;
-			}
-			return false;
+			return pileLimite.getFirst() instanceof FinLimite;
 		} else if (limite instanceof FinLimite) {
-			if (!pileLimite.isEmpty()) {
-				if (pileLimite.getLast() instanceof DebutLimite) {
-					return true;
-				}
-			}
+			return !pileLimite.isEmpty() && pileLimite.getFirst() instanceof DebutLimite;
 		}
 		return false;
 	}
 
 	private boolean estDepotBatailleAutorise(Bataille bataille) {
 		if (bataille instanceof Attaque att) {
-			if (peutAvancer() && !estProtege(att)) {
-				return true;
-			}
-			return false;
+			return peutAvancer() && !estProtege(att);
 		}
 
 		if (bataille instanceof Parade parade) {
-			Type paradeType=parade.getType();
-			if (paradeType==null) {
-				throw new IllegalArgumentException("Paradetype est null\n");
+			Type paradeType = parade.getType();
+			if (paradeType == null) {
+				throw new IllegalArgumentException("Type de parade nul");
 			}
 			if (paradeType.equals(Type.FEU)) {
 				return estDepotFeuVerAutorise();
 			} else if (!pileBatailles.isEmpty()) {
-				if (pileBatailles.getLast() instanceof Attaque att) {
-					if (att.getType().equals(paradeType) && !estProtege(att)) {
-						return true;
-					}
+				Bataille sommet = pileBatailles.getFirst();
+				if (sommet instanceof Attaque att && att.getType().equals(paradeType) && !estProtege(att)) {
+					return true;
 				}
-				return false;
 			}
 		}
-		return false; // n'arrivera pas car bataille est soit une attaque soit une parade.throw new
-						// exception ?
+		return false;
 	}
 
 	public boolean estDepotAutorise(Carte c) {
@@ -171,11 +150,9 @@ public class ZoneDeJeu {
 		} else if (c instanceof Borne bo) {
 			return estDepotBorneAutorise(bo);
 		}
-		return true; // cas prioritaire a voir
+		return true; // pour les bottes par ex.
 	}
 
-	// TP4
-	// private Set<Botte> bottes = new HashSet<>();
 	public void ajouterBotte(Botte b) {
 		bottes.add(b);
 	}
@@ -196,9 +173,9 @@ public class ZoneDeJeu {
 		return possedeBotte(new Botte(Type.FEU));
 	}
 
-	// Verifie si on est protege de l'attaque passe en parametre
 	public boolean estProtege(Attaque att) {
 		Type type = att.getType();
 		return possedeBotte(new Botte(type));
 	}
 }
+
