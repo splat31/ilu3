@@ -40,6 +40,7 @@ public class ZoneDeJeu {
 	}
 
 	public void deposer(Carte c) {
+		//TODO Utiliser un switch
 		if (c instanceof Borne borne) {
 			pilebBornes.add(borne);
 		} else if (c instanceof Limite limite) {

@@ -60,6 +60,7 @@ public class Joueur {
 
 	public Set<Coup> coupsPossibles(Set<Joueur> participants) {
 		Set<Coup> coupspossible = new HashSet<Coup>();
+		//jutilise iterator et foreach 
 		for (Iterator<Carte> iterator = main.iterator(); iterator.hasNext();) {
 			Carte carte = iterator.next();
 			for (Joueur cible : participants) {
@@ -69,8 +70,9 @@ public class Joueur {
 				}
 			}
 			/*
-			 * J'ai fait ca avant de lire la suite XD Coup atest2 = new Coup(this, carte,
-			 * null); coupspossible.add(atest2);//forcement valide
+			 * J'ai fait ca avant de lire la suite XD 
+			 * Coup atest2 = new Coup(this, carte,null);
+			 *  coupspossible.add(atest2);//forcement valide
 			 */
 		}
 		return coupspossible;

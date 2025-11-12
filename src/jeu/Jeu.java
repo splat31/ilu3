@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.NavigableSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import carte.Carte;
 import carte.JeuDeCartes;
@@ -120,9 +122,30 @@ public class Jeu {
 		} else {
 			partie.append("\nLe joueur "+joueur+" a gagner la partie\n");
 		}
+		partie.append(toStringClassement());
 		return partie.toString();
 	}
 	
+	public NavigableSet<Joueur> classement() {
+		NavigableSet<Joueur> ensemble = new TreeSet<>(new JoueurComparator());
+		ensemble.addAll(participants);
+		/*
+		for (Joueur j : participants) {
+			ensemble.add(j);
+		}*/
+		return ensemble;
+		
+	}
 	
+	public String toStringClassement() {
+		StringBuilder n = new StringBuilder();
+		n.append("Classement:\n");
+		NavigableSet<Joueur> classement = classement();
+		for (Joueur j : classement) {
+			n.append("-"+j.toString()+"\n");
+		}
+		n.append("\n");
+		return n.toString();
+	}
 	
 }

@@ -20,8 +20,8 @@ class JeuTest {
 		jeu = new Jeu(jeuDeCartes.donnerCartes());
 		jeu.ajouterJoueur(new Joueur("Bastien"));
 		jeu.ajouterJoueur(new Joueur("Yoann"));
-		//jeu.ajouterJoueur(new Joueur("Oscar", new ZoneDeJeu()));
-		//jeu.ajouterJoueur(new Joueur("Vira", new ZoneDeJeu()));
+		//jeu.ajouterJoueur(new Joueur("Oscar"));
+		//jeu.ajouterJoueur(new Joueur("Vira"));
 		jeu.distribuerCartes();
 	}
 

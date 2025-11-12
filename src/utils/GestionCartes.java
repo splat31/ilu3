@@ -102,7 +102,7 @@ public class GestionCartes {
 		ListIterator<Carte> iterator=lcarte.listIterator();iterator.hasNext();
 		Carte cartetemp = iterator.next();
 		
-		for (;iterator.hasNext();) {
+		while (iterator.hasNext()) {
 			Carte cartetemp2 = iterator.next();
 			while (iterator.hasNext()&&cartetemp.equals(cartetemp2)) {
 				cartetemp=cartetemp2;
