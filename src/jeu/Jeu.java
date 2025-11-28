@@ -20,9 +20,11 @@ public class Jeu {
 	private GestionCartes gestion;
 	private List<Carte> listeCartes;
 	private Carte[] carteSab;
+	
 	/*Linked car plus tard dans donnerjoueursuivant  on va avoir besoin d'assurer que l'ordre des
 	elements est respecte hors un hash set ne le fais pas*/
 	private LinkedHashSet<Joueur> participants;
+	
 	private int suivant =0;
 	private int nbTour = 1;
 	

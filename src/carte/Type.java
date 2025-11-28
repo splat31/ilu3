@@ -5,7 +5,7 @@ public enum Type {
 	
 	
 	
-	private final String attaque;
+	String attaque;
 	private final String parade;
 	private final String botte;
 	
